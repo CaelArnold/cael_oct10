@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+//import './dartpad.dart';
 
 void main() {
   runApp(const MainApp());
@@ -10,19 +11,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: TodHomeScreen(),
+      home: TodoHomeScreen(),
     );
-  }
-}
-
-class TodHomeScreen extends StatelessWidget {
-  const TodHomeScreen({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const TodoHomeScreen();
   }
 }
 
@@ -36,6 +26,8 @@ class TodoHomeScreen extends StatefulWidget {
 }
 
 class _TodoHomeScreenState extends State<TodoHomeScreen> {
+
+  List<String> myList = [];
 
   final _textController = TextEditingController();
 
@@ -60,8 +52,13 @@ class _TodoHomeScreenState extends State<TodoHomeScreen> {
                 ),
               ),
               ElevatedButton(
-                onPressed: (){},
-                child: Text("Add"),
+                onPressed: (){
+                  print("Button pressed text: ${_textController.text}");
+                  setState(() {
+                    myList.add(_textController.text);
+                  });
+                },
+                child: Text("+ Add"),
               ),
             ],
           )

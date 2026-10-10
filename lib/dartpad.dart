@@ -1,17 +1,23 @@
-/*
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(
-    ChangeNotifierProvider<PositionData>(
+  runApp(const MoveTextApp());
+}
+
+class MoveTextApp extends StatelessWidget {
+  const MoveTextApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<PositionData>(
       create: (context) => PositionData(),
       builder: (context, child) => const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: PositionSliderPage(),
       ),
-    ),
-  );
+    );
+  }
 }
 
 class PositionData extends ChangeNotifier {
@@ -47,24 +53,16 @@ class PositionSliderPage extends StatelessWidget {
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
-          // Define boundaries
-          final double containerWidth =
-              constraints.maxWidth - (paddingValue * 2);
-          final double containerHeight =
-              constraints.maxHeight -
-              (paddingValue * 2) -
-              150.0; // Reserve space for controls
+          final double containerWidth = constraints.maxWidth - (paddingValue * 2);
+          final double containerHeight = constraints.maxHeight - (paddingValue * 2) - 150.0;
 
           return Consumer<PositionData>(
             builder: (context, data, child) {
-              // Calculate available movement range for the widget
               final double maxRangeX = containerWidth - widgetSize;
-              final double maxRangeY =
-                  containerHeight - 60.0; // 60 approx height of text box
+              final double maxRangeY = containerHeight - 60.0;
 
               return Stack(
                 children: [
-                  // Area Boundary
                   Positioned(
                     left: paddingValue,
                     top: paddingValue,
@@ -73,23 +71,16 @@ class PositionSliderPage extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: Theme.of(context).primaryColor
-                              .withValues(alpha: 0.5),
+                          color: Theme.of(context).primaryColor.withAlpha(128),
                           width: 2.0,
                         ),
                         borderRadius: BorderRadius.circular(16),
                       ),
                     ),
                   ),
-
-                  // Interactive Widget
                   Positioned(
-                    left:
-                        paddingValue +
-                        (data.horizontal * (maxRangeX > 0 ? maxRangeX : 0)),
-                    top:
-                        paddingValue +
-                        (data.vertical * (maxRangeY > 0 ? maxRangeY : 0)),
+                    left: paddingValue + (data.horizontal * (maxRangeX > 0 ? maxRangeX : 0)),
+                    top: paddingValue + (data.vertical * (maxRangeY > 0 ? maxRangeY : 0)),
                     child: GestureDetector(
                       onPanUpdate: (details) {
                         if (maxRangeX > 0) {
@@ -111,7 +102,7 @@ class PositionSliderPage extends StatelessWidget {
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.1),
+                              color: Colors.black.withAlpha(25),
                               blurRadius: 8,
                               offset: const Offset(0, 4),
                             ),
@@ -137,4 +128,3 @@ class PositionSliderPage extends StatelessWidget {
     );
   }
 }
-*/
