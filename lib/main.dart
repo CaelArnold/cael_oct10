@@ -52,18 +52,19 @@ class _TodoHomeScreenState extends State<TodoHomeScreen> {
             children: [
               Expanded(
                 child: TextField(
+                  controller: _textController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: 'Enter a Task',
                   ),
-                  controller: _textController,
                 ),
               ),
               ElevatedButton(
                 onPressed: (){},
                 child: Text("Add"),
               ),
-            ],)
+            ],
+          )
         ],
       ),
     );
